@@ -2,6 +2,8 @@
 #ifndef __SCENE_H__
 #define __SCENE_H__
 
+#include <pxr/pxr.h>
+using namespace pxr;
 #include <pxr/imaging/glf/glew.h>
 
 #ifdef __APPLE__
@@ -17,7 +19,9 @@
 
 #include <pxr/usd/usd/stage.h>
 #include <pxr/usd/usd/prim.h>
-#include <pxr/usdImaging/usdImagingGL/gl.h>
+#define RenderParams UsdImagingGLRenderParams
+#include <pxr/usdImaging/usdImagingGL/refEngine.h>
+//#include <pxr/usdImaging/usdImagingGL/gl.h>
 #include <pxr/base/gf/camera.h>
 
 PXR_NAMESPACE_USING_DIRECTIVE
@@ -38,8 +42,8 @@ private:
 
     UsdStageRefPtr mStage;
     SdfPathVector mExcludePaths;
-    UsdImagingGL mRenderer;
-    UsdImagingGLEngine::RenderParams mParams;
+    UsdImagingGLEngine mRenderer;
+    RenderParams mParams;
     UsdPrim mBoard;
     GfCamera mCamera;
     SdfPath mCurrent;

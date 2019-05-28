@@ -8,6 +8,7 @@
 #include <pxr/usd/usdGeom/camera.h>
 #include <pxr/usd/usdGeom/xformCommonAPI.h>
 #include <string>
+#include <iostream>
 
 #if (BOOST_OS_WINDOWS)
 #  include <stdlib.h>
@@ -147,8 +148,12 @@ Scene::Scene() :
 
     printf(
         "Hydra is %s\n",
-        UsdImagingGL::IsEnabledHydra() ? "enabled" : "disabled");
+        UsdImagingGLEngine::IsHydraEnabled() ? "enabled" : "disabled");
 
+    std::cout << "Renderers:\n";
+    for (auto&& renderer : mRenderer.GetRendererPlugins())
+		std::cout << "  " << renderer << "\n";
+	mRenderer.SetRendererPlugin(mRenderer.GetRendererPlugins().back());
     mParams.frame = 1.0;
     mParams.complexity = 1.1f;
 }
